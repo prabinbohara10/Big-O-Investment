@@ -1,0 +1,313 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="row mb-3"></div>
+<div class="container" >
+
+<div class="row">
+    <div class="p-3 mb-2 bg-primary text-white">
+      <h2>Technical Screener</h2>
+      
+    </div>
+    
+      
+</div>
+<div class="row">
+  <div class="float-right">
+    <button type="submit" class="btn btn-dark" form="tecc">Search</button>
+  </div>
+</div>
+
+<form class="form-group " id="tecc" method="POST" action="technical_screener_search">
+  {% csrf_token %}
+    <!-- 1st row start -->
+    <div class="row">
+        <div class="col-lg-4" id="market_cap"><h3> RSI</h3></div>
+        <div class="col-lg-4" id="book_value"><h3> MACD vs Signal</h3></div>
+            <div class="col-lg-4" id="book_value"><h3> BollingerBand</h3></div>    
+            </div>
+            
+            <div class="row">
+                <!-- 1st colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault19" id="flexRadioDefault19" onclick="funda_radio(19)" checked>
+                        <label class="form-check-label" for="flexRadioDefault19">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="rsi_defined_id" name="rsi_defined_search">
+                        <option value=''>any</option>
+                        <option value=1>below 30</option>
+                        <option value=2>30 to 70</option>
+                        <option value=3>above 70</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault19" id="flexRadioDefault20" onclick="funda_radio(20)" >
+                        <label class="form-check-label" for="flexRadioDefault20">
+                          Own Range
+                        </label>
+                      </div>
+                      <div class="input-group d-print-block" id="ownn" >
+                          <div class="col-lg-6">
+                            <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="rsi_min_search" id="rsi_min_id">
+                          </div>
+                          <div class="col-lg-6">
+                            <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="rsi_max_search" id="rsi_max_id">
+                          </div>
+                      </div>
+                    
+                </div>
+
+                <!-- 1st col end -->
+
+                <!-- 2nd colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault20" id="flexRadioDefault21"checked>
+                        <label class="form-check-label" for="flexRadioDefault21">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="macd_defined" name="macd_defined_search">
+                        <option value=''>any</option>
+                        <option value='UP' >up</option>
+                        <option value='Down'>down</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+
+                <!-- 2nd col end -->
+                
+
+                <!-- 3rd colume start -->
+                
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault21" id="flexRadioDefault22" checked>
+                        <label class="form-check-label" for="flexRadioDefault22">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="bbs_defined" name="bbs_defined_search">
+                        <option value=''>any</option>
+                        <option value='Above Upper  Band'>above upper band</option>
+                        <option value='Inbetween Bollingers Band'>between bands</option>
+                        <option value='Below Lower band'>below lower band</option>
+                      </select>
+                      
+                </div>
+                
+
+                <!-- 3rd col end -->
+                
+
+            </div>
+      
+      <!-- 1st row ending -->
+
+
+      <div class="row mb-3"></div>
+
+          <!-- 2nd row start -->
+    <div class="row">
+      <div class="col-lg-4" id="market_cap"><h3>20sma v price</h3></div>
+      <div class="col-lg-4" id="book_value"><h3>50sma v price</h3></div>
+          <div class="col-lg-4" id="book_value"><h3>200sma v price</h3></div>    
+          </div>
+          
+          <div class="row">
+              <!-- 1st colume start -->
+              <div class="col-lg-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault22" id="flexRadioDefault23"checked>
+                    <label class="form-check-label" for="flexRadioDefault23">
+                      defined Range
+                    </label>
+                  </div>
+                  <select class="form-control form-control" id="t20v20p_defined" name="t20v20p_defined_search">
+                    <option value=''>any</option>
+                    <option value='UP' >up</option>
+                    <option value='Down'>down</option>
+                  </select>
+                  
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+
+            <!-- 1st col end -->
+            
+
+
+              <!-- 2nd colume start -->
+              <div class="col-lg-2">
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault23" id="flexRadioDefault24"checked>
+                      <label class="form-check-label" for="flexRadioDefault24">
+                        defined Range
+                      </label>
+                    </div>
+                    <select class="form-control form-control" id="t50v20p_defined" name="t50v20p_defined_search">
+                      <option value=''>any</option>
+                      <option value='UP' >up</option>
+                      <option value='Down'>down</option>
+                    </select>
+                    
+              </div>
+              <div class="col-lg-2">
+
+              </div>
+
+              <!-- 2nd col end -->
+              
+
+              <!-- 3rd colume start -->
+              
+              <div class="col-lg-2">
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault24" id="flexRadioDefault25" checked>
+                      <label class="form-check-label" for="flexRadioDefault25">
+                        defined Range
+                      </label>
+                    </div>
+                    <select class="form-control form-control" id="t200v20p_defined" name="t200v20p_defined_search">
+                      <option value=''>any</option>
+                      <option value='UP' >up</option>
+                      <option value='Down'>down</option>
+                    </select>
+                    
+              </div>
+              
+
+              <!-- 3rd col end -->
+              
+
+          </div>
+    
+    <!-- 2nd row ending -->
+
+
+    <div class="row mb-3"></div>
+
+
+        <!-- 3rd row start -->
+        <div class="row">
+          <div class="col-lg-4" id="market_cap"><h3>LTP</h3></div>  
+          <div class="col-lg-4" id="market_cap"><h3>50 v 20ema</h3></div>  
+              </div>
+              
+              <div class="row">
+                  <!-- 1st colume start -->
+                  <div class="col-lg-2">
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="flexRadioDefault25" id="flexRadioDefault26" onclick="funda_radio(21)" checked>
+                          <label class="form-check-label" for="flexRadioDefault26">
+                            defined Range
+                          </label>
+                        </div>
+                        <select class="form-control form-control" id="ltp_defined_id" name="ltp_defined_search">
+                          <option value=''>any</option>
+                          <option value=1>below 300</option>
+                          <option value=2>below to 500</option>
+                          <option value=3>above 500</option>
+                        </select>
+                        
+                  </div>
+                  <div class="col-lg-2">
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="flexRadioDefault25" id="flexRadioDefault27" onclick="funda_radio(22)" >
+                          <label class="form-check-label" for="flexRadioDefault27">
+                            Own Range
+                          </label>
+                        </div>
+                        <div class="input-group d-print-block" id="ownn" >
+                            <div class="col-lg-6">
+                              <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="ltp_min_search" id="ltp_min_id">
+                            </div>
+                            <div class="col-lg-6">
+                              <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="ltp_max_search" id="ltp_max_id">
+                            </div>
+                        </div>
+                      
+                  </div>
+  
+                  <!-- 1st col end -->
+  
+                  <!-- 2nd colume start -->
+              <div class="col-lg-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault26" id="flexRadioDefault28"checked>
+                    <label class="form-check-label" for="flexRadioDefault28">
+                      defined Range
+                    </label>
+                  </div>
+                  <select class="form-control form-control" id="t50v20e_defined" name="t50v20e_defined_search">
+                    <option value=''>any</option>
+                    <option value='UP' >up</option>
+                    <option value='Down'>down</option>
+                  </select>
+                  
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+
+            <!-- 2nd col end -->
+            
+
+  
+              </div>
+        
+        <!-- 3rd row ending -->
+  
+  
+        <div class="row mb-3"></div>
+
+
+</form>
+<div class="row mb-3"></div>
+<div class="row mb-3"></div>
+
+</div>
+
+<div class="container" id="ff_search">
+    <div class="row">
+        <div class="p-3 mb-2 bg-secondary text-white"><h2>Search Result</h2></div>
+    </div>
+  </div>
+  <div class="container">
+    <!-- table start -->
+    <table class="table">
+      <thead class="thead-primary">
+        <tr>
+          <th scope="col">SN</th>
+          <th scope="col">Company</th>
+          <th scope="col">LTP</th>
+        </tr>
+      </thead>
+      <tbody>
+      <!-- count=1 -->
+      {% for tq1 in tq%}
+      <tr>
+        <th scope="col">{{ forloop.counter }}</th>
+        <th scope="col">{{tq1.symbol}}</th>
+        <th scope="col">{{tq1.ltp}}</th>
+      </tr>
+      
+      {% endfor %}
+    </tbody>
+      
+    </table>
+  </div>
+    <!-- table end -->
+
+
+
+{%  endblock %}

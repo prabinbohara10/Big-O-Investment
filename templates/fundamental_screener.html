@@ -1,0 +1,436 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="row mb-3"></div>
+<div class="container" >
+
+<div class="row">
+    <div class="p-3 mb-2 bg-primary text-white">
+      <h2>Fundamental Screener</h2>
+      
+    </div>
+    
+      
+</div>
+<div class="row">
+  <div class="float-right">
+    <button type="submit" class="btn btn-dark" form="forr">Search</button>
+  </div>
+</div>
+
+<form class="form-group " id="forr" method="POST" action="fundamental_screener_search">
+  {% csrf_token %}
+    <!-- 1st row start -->
+    <div class="row">
+        <div class="col-lg-4" id="market_cap"><h3> Book value</h3></div>
+        <div class="col-lg-4" id="book_value"><h3> EPS</h3></div>
+            <div class="col-lg-4" id="book_value"><h3> Market Cap.</h3></div>    
+            </div>
+            
+            <div class="row">
+                <!-- 1st colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault1" id="flexRadioDefault1" onclick="funda_radio(1)" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="bv_defined_id" name="bv_defined_search">
+                        <option value=''>any</option>
+                        <option value=100>below 100</option>
+                        <option value=200>below 200</option>
+                        <option value=300>below 300</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault1" id="flexRadioDefault2" onclick="funda_radio(2)" >
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Own Range
+                        </label>
+                      </div>
+                      <div class="input-group d-print-block" id="ownn" >
+                          <div class="col-lg-6">
+                            <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="bv_min_search" id="bv_min_id">
+                          </div>
+                          <div class="col-lg-6">
+                            <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="bv_max_search" id="bv_max_id">
+                          </div>
+                      </div>
+                    
+                </div>
+
+                <!-- 1st col end -->
+
+                <!-- 2nd colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault3" onclick="funda_radio(3)" checked>
+                        <label class="form-check-label" for="flexRadioDefault3">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="eps_defined" name="eps_defined_search">
+                        <option value=''>any</option>
+                        <option >below 10</option>
+                        <option >below 20</option>
+                        <option >below 30</option>
+                        <option >below 40</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault4" onclick="funda_radio(4)" >
+                        <label class="form-check-label" for="flexRadioDefault4">
+                          Own Range
+                        </label>
+                      </div>
+                      <div class="input-group d-print-block" id="ownn" >
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="eps_min_search" id="eps_min_id">
+                        </div>
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="eps_max_search" id="eps_max_id">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- 2nd col end -->
+                
+
+                <!-- 3rd colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault5" onclick="funda_radio(5)" checked>
+                        <label class="form-check-label" for="flexRadioDefault5">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="mc_defined" name="mc_defined_search">
+                        <option value=''>any</option>
+                        <option value=1000000000>below 1 arab</option>
+                        <option value=2000000000> below 2 arab</option>
+                        <option value=3000000000>below 3 arab</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault6" onclick="funda_radio(6)" >
+                        <label class="form-check-label" for="flexRadioDefault6">
+                          Own Range
+                        </label>
+                      </div>
+                      <div class="input-group d-print-block" id="ownn" >
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="mc_min_search" id="mc_min_id">
+                        </div>
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="mc_max_search" id="mc_max_id">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- 3rd col end -->
+                
+
+            </div>
+      
+      <!-- 1st row ending -->
+
+      <div class="row mb-3"></div>
+
+      <!-- 2nd row start -->
+    <div class="row">
+        <div class="col-lg-4" id="market_cap"><h3> Payout Ratio</h3></div>
+        <div class="col-lg-4" id="book_value"><h3> PB</h3></div>
+            <div class="col-lg-4" id="book_value"><h3>PE</h3></div>    
+            </div>
+            
+            <div class="row">
+                <!-- 1st colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault4" id="flexRadioDefault7" onclick="funda_radio(7)" checked>
+                        <label class="form-check-label" for="flexRadioDefault7">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="por_defined" name="por_defined_search">
+                        <option value=''>any</option>
+                        <option value=0.1>below 0.1</option>
+                        <option value=0.2>below 0.2</option>
+                        <option value=0.3>below 0.3</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault4" id="flexRadioDefault8" onclick="funda_radio(8)" >
+                        <label class="form-check-label" for="flexRadioDefault8">
+                          Own Range
+                        </label>
+                      </div>
+                      <div class="input-group d-print-block" id="ownn" >
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="por_min_search" id="por_min_id">
+                        </div>
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="por_max_search" id="por_max_id">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- 1st col end -->
+
+                <!-- 2nd colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault9" onclick="funda_radio(9)" checked>
+                        <label class="form-check-label" for="flexRadioDefault9">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="pb_defined" name="pb_defined_search">
+                        <option value=''>any</option>
+                        <option value=1>below 1</option>
+                        <option value=2>below 2</option>
+                        <option value=3>below 3</option>
+                        <option value=4>below 4</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault10" onclick="funda_radio(10)" >
+                        <label class="form-check-label" for="flexRadioDefault10">
+                          Own Range
+                        </label>
+                      </div>
+                      <div class="input-group d-print-block" id="ownn" >
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="pb_min_search" id="pb_min_id">
+                        </div>
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="pb_min_searched" id="pb_max_id">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- 2nd col end -->
+                
+
+                <!-- 3rd colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault6" id="flexRadioDefault11" onclick="funda_radio(11)" checked>
+                        <label class="form-check-label" for="flexRadioDefault11">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="pe_defined" name="pe_defined_search">
+                        <option value=''>any</option>
+                        <option value=10>below 10</option>
+                        <option value=20>below 20</option>
+                        <option value=30>below 30</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault6" id="flexRadioDefault12" onclick="funda_radio(12)" >
+                        <label class="form-check-label" for="flexRadioDefault12">
+                          Own Range
+                        </label>
+                      </div>
+                      <div class="input-group d-print-block" id="ownn" >
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="pe_min_search" id="pe_min_id">
+                        </div>
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="pe_min_search" id="pe_max_id">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- 3rd col end -->
+                
+
+            </div>
+      
+      <!-- 2nd row ending -->
+
+      <div class="row mb-3"></div>
+      <!-- 3rd row start -->
+    <div class="row">
+        <div class="col-lg-4" id="market_cap"><h3> Peg Ratio</h3></div>
+        <div class="col-lg-4" id="book_value"><h3> ROA</h3></div>
+            <div class="col-lg-4" id="book_value"><h3> ROE</h3></div>    
+            </div>
+            
+            <div class="row">
+                <!-- 1st colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault7" id="flexRadioDefault13" onclick="funda_radio(13)" checked>
+                        <label class="form-check-label" for="flexRadioDefault13">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="pgr_defined" name="pgr_defined_search">
+                        <option value=''>any</option>
+                        <option value=1>below 1</option>
+                        <option value=2>below 2</option>
+                        <option value=3>below 3</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault7" id="flexRadioDefault14" onclick="funda_radio(14)" >
+                        <label class="form-check-label" for="flexRadioDefault14">
+                          Own Range
+                        </label>
+                      </div>
+                      <div class="input-group d-print-block" id="ownn" >
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="pgr_min_search" id="pgr_min_id">
+                        </div>
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="pgr_max_search" id="pgr_max_id">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- 1st col end -->
+
+                <!-- 2nd colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault8" id="flexRadioDefault15" onclick="funda_radio(15)" checked>
+                        <label class="form-check-label" for="flexRadioDefault15">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="roa_defined" name="roa_defined_search">
+                        <option value=''>any</option>
+                        <option value=1>above 1</option>
+                        <option value=2>above 2</option>
+                        <option value=3>above 3</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault8" id="flexRadioDefault16" onclick="funda_radio(16)" >
+                        <label class="form-check-label" for="flexRadioDefault16">
+                          Own Range
+                        </label>
+                      </div>
+                      <div class="input-group d-print-block" id="ownn" >
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="roa_min_search" id="roa_min_id">
+                        </div>
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="roa_max_search" id="roa_max_id">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- 2nd col end -->
+                
+
+                <!-- 3rd colume start -->
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault9" id="flexRadioDefault17" onclick="funda_radio(17)" checked>
+                        <label class="form-check-label" for="flexRadioDefault17">
+                          defined Range
+                        </label>
+                      </div>
+                      <select class="form-control form-control" id="roe_defined" name="roe_defined_search">
+                        <option value=''>any</option>
+                        <option value=0.1 >above 0.1</option>
+                        <option value=0.2 >above 0.2</option>
+                        <option  value=0.3>above 0.3</option>
+                      </select>
+                      
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault9" id="flexRadioDefault18" onclick="funda_radio(18)" >
+                        <label class="form-check-label" for="flexRadioDefault18">
+                          Own Range
+                        </label>
+                      </div>
+                      <div class="input-group d-print-block" id="ownn" >
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="min" aria-label="Search" name="roe_min_search" id="roe_min_id">
+                        </div>
+                        <div class="col-lg-6">
+                          <input class="input--style-4" type="text" placeholder="max" aria-label="Search" name="roe_max_search" id="roe_max_id">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- 3rd col end -->
+                
+
+            </div>
+      
+      <!-- 3rd row ending -->
+
+
+
+
+</form>
+<div class="row mb-3"></div>
+<div class="row mb-3"></div>
+
+</div>
+
+<div class="container" id="ff_search">
+    <div class="row">
+        <div class="p-3 mb-2 bg-secondary text-white"><h2>Search Result</h2></div>
+    </div>
+  </div>
+  <div class="container">
+    <!-- table start -->
+    <table class="table">
+      <thead class="thead-primary">
+        <tr>
+          <th scope="col">SN</th>
+          <th scope="col">Company</th>
+          <th scope="col">Sector</th>
+        </tr>
+      </thead>
+      <tbody>
+      <!-- count=1 -->
+      {% for fq1 in fq%}
+      <tr>
+        <th scope="col">{{ forloop.counter }}</th>
+        <th scope="col">{{fq1.companies}}</th>
+        <th scope="col">{{fq1.sector}}</th>
+      </tr>
+      
+      {% endfor %}
+    </tbody>
+      
+    </table>
+  </div>
+    <!-- table end -->
+
+
+
+{%  endblock %}

@@ -1,0 +1,40 @@
+
+.qq{
+    text-align: center;
+    color: blue;
+}
+
+
+/* for screener text center and bg color */
+#forr{
+    text-align:center;
+    background-color:honeydew;
+}
+#tecc{
+    text-align:center;
+    background-color:honeydew;
+}
+/* to make the input box of appropiate size */
+input{
+    width: 70%;
+}
+/* to make lines in the screnner */
+.col-lg-4{
+    border: 2px solid #ccc;
+}
+
+/* for making radio button hidden  */
+#bv_min_id,#bv_max_id,#eps_min_id,#eps_max_id,#mc_min_id,#mc_max_id,#por_min_id,#por_max_id,#pb_min_id,#pb_max_id,
+#pe_min_id,#pe_max_id,#pgr_min_id,#pgr_max_id,#roa_min_id,#roa_max_id,#roe_min_id,#roe_max_id
+,#rsi_min_id,#rsi_max_id,#ltp_min_id,#ltp_max_id{
+    visibility: hidden;
+}
+
+#bv_defined_id{
+    visibility:visible;
+}
+
+/* for the div container of the table */
+/* #ff_search{
+    background-color:darkgreen;
+} */

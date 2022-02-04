@@ -1,0 +1,257 @@
+{% extends 'comparator.html'%}
+
+{% block content1 %}
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">
+          {% for x in fcomparator_comp1_search_query%}
+       {{x.companies}}
+          {% endfor%}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          {% for x in fcomparator_comp1_search_query%}
+        {{x.trailing_PE}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for x in fcomparator_comp1_search_query%}
+        {{x.price_to_book}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for x in fcomparator_comp1_search_query%}
+        {{x.return_on_equity}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for x in fcomparator_comp1_search_query%}
+        {{x.return_on_assets}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for x in fcomparator_comp1_search_query%}
+        {{x.book_value}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for x in fcomparator_comp1_search_query%}
+        {{x.trailing_EPS}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for x in fcomparator_comp1_search_query%}
+        {{x.payout_ratio}}
+          {% endfor%}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+{%  endblock %}
+
+{% block content2 %}
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">
+          {% for y in fcomparator_comp2_search_query%}
+       {{y.companies}}
+          {% endfor%}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          {% for y in fcomparator_comp2_search_query%}
+        {{y.trailing_PE}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for y in fcomparator_comp2_search_query%}
+        {{y.price_to_book}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for y in fcomparator_comp2_search_query%}
+        {{y.return_on_equity}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for y in fcomparator_comp2_search_query%}
+        {{y.return_on_assets}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for y in fcomparator_comp2_search_query%}
+        {{y.book_value}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for y in fcomparator_comp2_search_query%}
+        {{y.trailing_EPS}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for y in fcomparator_comp2_search_query%}
+        {{y.payout_ratio}}
+          {% endfor%}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+{%  endblock %}
+
+{% block content3 %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">
+          <div class="row mb-4"></div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        {% for z in tcomparator_comp1_search_query%}
+      {{z.rsi}}
+        {% endfor%}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% for z in tcomparator_comp1_search_query%}
+      {{z.macd}}
+        {% endfor%}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% for z in tcomparator_comp1_search_query%}
+      {{z.bollingerband}}
+        {% endfor%}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% for z in tcomparator_comp1_search_query%}
+      {{z.t20sma_v_price}}
+        {% endfor%}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% for z in tcomparator_comp1_search_query%}
+      {{z.t50sma_v_price}}
+        {% endfor%}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% for z in tcomparator_comp1_search_query%}
+      {{z.fiftytwo_week_high_price}}
+        {% endfor%}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% for z in tcomparator_comp1_search_query%}
+      {{z.fiftytwo_week_low_price}}
+        {% endfor%}
+      </td>
+    </tr>
+  </tbody>
+</table>
+{%  endblock %}
+
+{% block content4 %}
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">
+            <div class="row mb-4"></div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          {% for mm in tcomparator_comp2_search_query%}
+        {{mm.rsi}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for mm in tcomparator_comp2_search_query%}
+        {{mm.macd}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for mm in tcomparator_comp2_search_query%}
+        {{mm.bollingerband}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for mm in tcomparator_comp2_search_query%}
+        {{mm.t20sma_v_price}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for mm in tcomparator_comp2_search_query%}
+        {{mm.t50sma_v_price}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for mm in tcomparator_comp2_search_query%}
+        {{mm.fiftytwo_week_high_price}}
+          {% endfor%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% for mm in tcomparator_comp2_search_query%}
+        {{mm.fiftytwo_week_low_price}}
+          {% endfor%}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+{%  endblock %}
