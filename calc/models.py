@@ -28,15 +28,6 @@ class fundamental(models.Model):
     def __str__(self):
       return self.companies
 
-class technical1(models.Model):
-    companies = models.TextField()
-    rsi = models.FloatField(max_length=20)
-    macd = models.TextField()
-    bollingerband = models.TextField()
-
-    def __str__(self):
-      return self.companies
-
 class technical2(models.Model):
     sn=models.IntegerField()
     business_date = models.DateField()
@@ -66,7 +57,7 @@ class technical2(models.Model):
     ltp=models.IntegerField()
     bollingerband = models.TextField()
     status = models.BooleanField(default=False)
-    holdings = models.IntegerField()
+    holdings = models.IntegerField(default=10)
 
     def __str__(self):
       return self.symbol
@@ -80,11 +71,11 @@ class signup_detail(models.Model):
     Username = models.TextField()
     Email = models.EmailField()
     Password = models.CharField(max_length=50)
-    watchlist = models.JSONField(default ='{}')
-    portfolio = models.JSONField(default ='{}')
+    watchlist = models.JSONField(default =dict)
+    portfolio = models.JSONField(default =dict)
 
 
-class nepse(models.Model):
+class base_model(models.Model):
 
     symbol = models.TextField()
     date = models.DateField()
@@ -94,26 +85,24 @@ class nepse(models.Model):
     close = models.FloatField(max_length=20)
     percentage_change = models.FloatField(max_length=20)
     volume = models.IntegerField()
-    
-    
-    
-
+    class Meta:
+      abstract=True
     def __str__(self):
-      return 'A'
+      return self.symbol
+   
 
-class tsla(models.Model):
 
-    date = models.DateField()
-    open = models.FloatField(max_length=20)
-    high = models.FloatField(max_length=20)
-    low = models.FloatField(max_length=20)
-    close = models.FloatField(max_length=20)
-    adj_close = models.FloatField(max_length=20)
-    volume = models.IntegerField()
-    rsi = models.FloatField(max_length=20)
-    macd = models.TextField()
-    bollingerband_signal = models.TextField()
+class nepse(base_model):
+  pass
+class nabil(base_model):
+  pass
+class upper(base_model):
+  pass
+class cbbl(base_model):
+  pass
+class nica(base_model):
+  pass
+
     
 
-    def __str__(self):
-      return 'TSLA'
+

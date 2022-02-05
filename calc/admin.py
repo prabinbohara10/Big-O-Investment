@@ -1,28 +1,35 @@
 from email import header
 from pickle import TRUE
+from readline import parse_and_bind
 from django.contrib import admin
+from pyexpat import model
+from django.db import models
+
 #from calc.models import TSLA
 from calc.models import fundamental
-from calc.models import technical1
-from calc.models import technical2,signup_detail
-from calc.models import a
+#from calc.models import technical1
+from calc.models import technical2,signup_detail,nepse
+#from calc.models import a
 #from calc.models import fundamental1
+#company model import
+from calc.models import nepse,nabil,upper,cbbl,nica
 
 from django.urls import path
 from django.shortcuts import render
 from django import forms
 
-from .models import fundamental
-from .models import technical1
+from .models import cbbl, fundamental, nica
+#from .models import technical1
 from .models import technical2
-from .models import a,tsla
+#from .models import a,tsla
 
 #from .models import fundamental1
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-# Register your models here.
+
+
 # admin.site.register(TSLA)
 #admin.site.register(technical2)
 
@@ -213,12 +220,12 @@ class technical2Admin(admin.ModelAdmin):
         data = {"form": form}
         return render(request, "admin/csv_upload.html", data)
 
-admin.site.register(technical2,technical2Admin)
-admin.site.register(technical1)
+
 
 # for a company ko lagi hai
-class aAdmin(admin.ModelAdmin):
-    list_display2 = ('date','open','high','low','close','adj_close','volume','rsi','macd','bollingerband_signal')
+#1:
+class nepseAdmin(admin.ModelAdmin):
+    list_displayn = ('symbol','date','open','high','low','close','per_change','volume')
 
     def get_urls(self):
         urls = super().get_urls()
@@ -248,17 +255,16 @@ class aAdmin(admin.ModelAdmin):
                 
                 
                 try:
-                    created = a.objects.update_or_create(
-                    date = fields[0],
-                    open = fields[1],
-                    high = fields[2],
-                    low =fields[3],
-                    close = fields[4],
-                    adj_close = fields[5],
-                    volume = fields[6],
-                    rsi = fields[7],
-                    macd = fields[8],
-                    bollingerband_signal = fields[9],
+                    print('ok')
+                    created = nepse.objects.update_or_create(
+                    symbol= fields[0],
+                    date = fields[1],
+                    open = fields[2],
+                    high = fields[3],
+                    low =fields[4],
+                    close = fields[5],
+                    percentage_change = fields[6],
+                    volume = fields[7],
                     )
                 except:
                     pass
@@ -269,6 +275,222 @@ class aAdmin(admin.ModelAdmin):
         data = {"form": form}
         return render(request, "admin/csv_upload.html", data)
 
-admin.site.register(a, aAdmin)
+
+# for a company ko lagi hai
+#2:
+class nabilAdmin(admin.ModelAdmin):
+    list_display2 = ('symbol','date','open','high','low','close','per_change','volume')
+
+    def get_urls(self):
+        urls = super().get_urls()
+        new_urls = [path('upload-csv/', self.upload_csv),]
+        return new_urls + urls
+
+    def upload_csv(self, request):
+
+        if request.method == "POST":
+            csv_file = request.FILES["csv_upload"]
+            
+            if not csv_file.name.endswith('.csv'):
+                messages.warning(request, 'The wrong file type was uploaded')
+                return HttpResponseRedirect(request.path_info)
+            
+            file_data = csv_file.read().decode("utf-8")
+            csv_data = file_data.split("\n")
+            #next(csv_data,None)
+            #print(csv_data.len())
+            skip_first =True
+            for x in csv_data:
+                if skip_first==True :
+                    skip_first=False
+                    continue
+                fields = x.split(",")
+                print('mishan')
+                
+                
+                try:
+                    created = nabil.objects.update_or_create(
+                    symbol= fields[0],
+                    date = fields[1],
+                    open = fields[2],
+                    high = fields[3],
+                    low =fields[4],
+                    close = fields[5],
+                    percentage_change = fields[6],
+                    volume = fields[7],
+                    )
+                except:
+                    pass
+            url = reverse('admin:index')
+            return HttpResponseRedirect(url)
+
+        form = CsvImportForm()
+        data = {"form": form}
+        return render(request, "admin/csv_upload.html", data)
+
+# for a company ko lagi hai
+#3:
+class upperAdmin(admin.ModelAdmin):
+    list_display2 = ('symbol','date','open','high','low','close','per_change','volume')
+
+    def get_urls(self):
+        urls = super().get_urls()
+        new_urls = [path('upload-csv/', self.upload_csv),]
+        return new_urls + urls
+
+    def upload_csv(self, request):
+
+        if request.method == "POST":
+            csv_file = request.FILES["csv_upload"]
+            
+            if not csv_file.name.endswith('.csv'):
+                messages.warning(request, 'The wrong file type was uploaded')
+                return HttpResponseRedirect(request.path_info)
+            
+            file_data = csv_file.read().decode("utf-8")
+            csv_data = file_data.split("\n")
+            #next(csv_data,None)
+            #print(csv_data.len())
+            skip_first =True
+            for x in csv_data:
+                if skip_first==True :
+                    skip_first=False
+                    continue
+                fields = x.split(",")
+                print('mishan')
+                
+                
+                try:
+                    created = upper.objects.update_or_create(
+                    symbol= fields[0],
+                    date = fields[1],
+                    open = fields[2],
+                    high = fields[3],
+                    low =fields[4],
+                    close = fields[5],
+                    percentage_change = fields[6],
+                    volume = fields[7],
+                    )
+                except:
+                    pass
+            url = reverse('admin:index')
+            return HttpResponseRedirect(url)
+
+        form = CsvImportForm()
+        data = {"form": form}
+        return render(request, "admin/csv_upload.html", data)
+
+# for a company ko lagi hai
+class cbblAdmin(admin.ModelAdmin):
+    list_display2 = ('symbol','date','open','high','low','close','per_change','volume')
+
+    def get_urls(self):
+        urls = super().get_urls()
+        new_urls = [path('upload-csv/', self.upload_csv),]
+        return new_urls + urls
+
+    def upload_csv(self, request):
+
+        if request.method == "POST":
+            csv_file = request.FILES["csv_upload"]
+            
+            if not csv_file.name.endswith('.csv'):
+                messages.warning(request, 'The wrong file type was uploaded')
+                return HttpResponseRedirect(request.path_info)
+            
+            file_data = csv_file.read().decode("utf-8")
+            csv_data = file_data.split("\n")
+            #next(csv_data,None)
+            #print(csv_data.len())
+            skip_first =True
+            for x in csv_data:
+                if skip_first==True :
+                    skip_first=False
+                    continue
+                fields = x.split(",")
+                print('mishan')
+                
+                
+                try:
+                    created = cbbl.objects.update_or_create(
+                    symbol= fields[0],
+                    date = fields[1],
+                    open = fields[2],
+                    high = fields[3],
+                    low =fields[4],
+                    close = fields[5],
+                    percentage_change = fields[6],
+                    volume = fields[7],
+                    )
+                except:
+                    pass
+            url = reverse('admin:index')
+            return HttpResponseRedirect(url)
+
+        form = CsvImportForm()
+        data = {"form": form}
+        return render(request, "admin/csv_upload.html", data)
+
+# for a company ko lagi hai
+class nicaAdmin(admin.ModelAdmin):
+    list_display2 = ('symbol','date','open','high','low','close','per_change','volume')
+
+    def get_urls(self):
+        urls = super().get_urls()
+        new_urls = [path('upload-csv/', self.upload_csv),]
+        return new_urls + urls
+
+    def upload_csv(self, request):
+
+        if request.method == "POST":
+            csv_file = request.FILES["csv_upload"]
+            
+            if not csv_file.name.endswith('.csv'):
+                messages.warning(request, 'The wrong file type was uploaded')
+                return HttpResponseRedirect(request.path_info)
+            
+            file_data = csv_file.read().decode("utf-8")
+            csv_data = file_data.split("\n")
+            #next(csv_data,None)
+            #print(csv_data.len())
+            skip_first =True
+            for x in csv_data:
+                if skip_first==True :
+                    skip_first=False
+                    continue
+                fields = x.split(",")
+                print('mishan')
+                
+                
+                try:
+                    created = nica.objects.update_or_create(
+                    symbol= fields[0],
+                    date = fields[1],
+                    open = fields[2],
+                    high = fields[3],
+                    low =fields[4],
+                    close = fields[5],
+                    percentage_change = fields[6],
+                    volume = fields[7],
+                    )
+                except:
+                    pass
+            url = reverse('admin:index')
+            return HttpResponseRedirect(url)
+
+        form = CsvImportForm()
+        data = {"form": form}
+        return render(request, "admin/csv_upload.html", data)
+
+
+
+#Register your models here.
+admin.site.register(technical2,technical2Admin)
+
+admin.site.register(nepse,nepseAdmin)
+admin.site.register(nabil,nabilAdmin)
+admin.site.register(upper,upperAdmin)
+admin.site.register(cbbl,cbblAdmin)
+admin.site.register(nica,nicaAdmin)
+
 admin.site.register(signup_detail)
-admin.site.register(tsla)

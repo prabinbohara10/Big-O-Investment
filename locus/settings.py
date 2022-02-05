@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'locus.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'new_schema',
+        'NAME': 'schema11',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST':'localhost',

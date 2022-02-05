@@ -1,11 +1,12 @@
 from asyncio.windows_events import NULL
+from email import message
 from symtable import Symbol
 from django.shortcuts import render
 from django.http import HttpResponse
 #from calc.models import TSLA
-from calc.models import fundamental
-from calc.models import a
-from calc.models import technical1
+from calc.models import fundamental, nepse,nabil,upper,cbbl,nica
+
+#from calc.models import technical1
 from calc.models import technical2,signup_detail
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,13 +14,19 @@ import matplotlib.pyplot as plt
 from prophet import Prophet
 import plotly.graph_objects as go
 import os
+import time
+import  smtplib,ssl
 
 
 fs1=''
 fs2=''
 # Create your views here.
 def home(request):
-    return render(request,'home.html')
+    
+    
+        
+    technical2_query_for_home= technical2.objects.all().order_by('symbol')
+    return render(request,'home.html',{'tqfh':technical2_query_for_home})
 
 
 def market(request):
@@ -51,110 +58,131 @@ def fundamental_screener(request):
 def comparator(request):
     return render(request,'comparator.html')
 
+
+
+
+
+sym = [nepse,nabil,upper,cbbl,nica]
+
+
+
+
 def forecast_search(request):
     #os.remove("static\image\prophetplot.png")
     forecast_query= fundamental.objects.all()
     if request.method == "POST":
-        fs1= request.POST.get('forecast_close_search')
+        fs1= request.POST.get('forecast_close_search').upper()
         print(fs1)
-        fsq1= a.objects.all() 
-        df1 = pd.DataFrame()
-        nabil1 = pd.DataFrame()
-        df1 = pd.DataFrame(list(a.objects.all().values())) 
-        print(df1) 
+        for s in sym:
+            for obj in s.objects.all():
+                if fs1 == str(obj):
+                    print(s.objects.all())
+                    fsq1= s.objects.all() 
+
         
-        import time
+                    df1 = pd.DataFrame()
+                    nabil1 = pd.DataFrame()
+                    df1 = pd.DataFrame(list(s.objects.all().values())) 
+                    print(df1) 
+                    
+                    import time
 
-        # def countdown(time_sec):
-        #     while time_sec:
-        #         mins, secs = divmod(time_sec, 60)
-        #         timeformat = '{:02d}:{:02d}'.format(mins, secs)
-        #         print(timeformat, end='\r')
-        #         time.sleep(1)
-        #         time_sec -= 1
+                    # def countdown(time_sec):
+                    #     while time_sec:
+                    #         mins, secs = divmod(time_sec, 60)
+                    #         timeformat = '{:02d}:{:02d}'.format(mins, secs)
+                    #         print(timeformat, end='\r')
+                    #         time.sleep(1)
+                    #         time_sec -= 1
 
-        #         print("stop")
+                    #         print("stop")
+                            
+                    # countdown(4)
+
+
+                    #forecast model:
                 
-        # countdown(4)
+                    
+                    #df=pd.read_csv('Tesla.csv')
+                    #df=df[::-1]
+                    #data Cleaning
+                    df1=df1.dropna()
+                    nabil1=df1[["date","close"]]
+                    nabil1.columns = ['ds','y']
+                    forecast_date='2021-01-01'
+                    forecast_time=30  #in days:
+
+                    plt.plot(nabil1['ds'], nabil1['y'],'r')
+                    plt.savefig('static\image\prophetplot40.png')
+                    plt.close()
 
 
-        #forecast model:
-       
-        
-        #df=pd.read_csv('Tesla.csv')
-        #df=df[::-1]
-        #data Cleaning
-        df1=df1.dropna()
-        nabil1=df1[["date","adj_close"]]
-        nabil1.columns = ['ds','y']
-        forecast_date='2021-01-01'
-        forecast_time=30  #in days:
-
-        plt.plot(nabil1['ds'], nabil1['y'],'r')
-        plt.savefig('static\image\prophetplot40.png')
-        plt.close()
-
-
-        #graph_div = go.offline.plot(fig1, auto_open = False, output_type="div")
-        return render(request,'forecast.html',{'fsq':fsq1,'forecast_query':forecast_query,'stock':fs1,'to_check_value':1})
+                    #graph_div = go.offline.plot(fig1, auto_open = False, output_type="div")
+                    return render(request,'forecast.html',{'fsq':fsq1,'forecast_query':forecast_query,'stock':fs1,'to_check_value':1})
+        return render(request,'forecast.html',{'forecast_query':forecast_query,'stock':fs1,'to_check_value':1})    
         
 def forecast_applied(request):
     #os.remove("static\image\prophetplot.png")
     forecast_query= fundamental.objects.all()
     if request.method == "POST":
-        stock_name= request.POST.get('stock')
+        stock_name= request.POST.get('stock').upper()
+        for s1 in sym:
+            for obj in s1.objects.all():
+                if stock_name == str(obj):
+                    print(s1.objects.all())
+                    fsq= s1.objects.all()
 
-        # forecast_date=request.POST.get('forecast_date')
-        # forecast_time=int(request.POST.get('forecast'))
-        # lookback_days=int(request.POST.get('lookback'))
-        # accuracy_range=int(request.POST.get('accuracy_range'))/100
-        forecast_date='2021-01-01'
-        forecast_time=30  #in days:
-        lookback_days=1000
-        accuracy_range=0.8
+                    # forecast_date=request.POST.get('forecast_date')
+                    # forecast_time=int(request.POST.get('forecast'))
+                    # lookback_days=int(request.POST.get('lookback'))
+                    # accuracy_range=int(request.POST.get('accuracy_range'))/100
+                    forecast_date='2021-01-01'
+                    forecast_time=30  #in days:
+                    lookback_days=1000
+                    accuracy_range=0.8
 
-        print(forecast_date, forecast_time,lookback_days)
-
-
-        
-        fsq= a.objects.all() 
-        df = pd.DataFrame()
-        nabil = pd.DataFrame()
-        df = pd.DataFrame(list(a.objects.all().values())) 
-        print(df) 
-        
-
-        #forecast model:
-       
-        
-        #df=pd.read_csv('Tesla.csv')
-        #df=df[::-1]
-        #data Cleaning
-        df=df.dropna()
-        nabil=df[["date","adj_close"]]
-        nabil.columns = ['ds','y']
-       
-
-        nabil.index=pd.to_datetime(nabil.ds)
-        nabil=nabil['y'][:forecast_date]
-        nabil = nabil.to_frame().reset_index()
-        nabil=nabil[len(nabil)-lookback_days : ]
-        nabil_train=nabil[:-30]
-        nabil_test=nabil[len(nabil)-30:]
-        
-        fbp=Prophet(daily_seasonality=False, changepoint_range=accuracy_range)
-        fbp.fit(nabil_train)
-        future=fbp.make_future_dataframe(periods=forecast_time)
-        forecast=fbp.predict(future)
-        print(forecast)
-        from fbprophet.plot import plot_plotly, plot_components_plotly
-        fig1 = fbp.plot(forecast)
-        fig1.savefig('static\image\prophetplot45.png')
-        
+                    print(forecast_date, forecast_time,lookback_days)
 
 
-        #graph_div = go.offline.plot(fig1, auto_open = False, output_type="div")
-        return render(request,'forecast.html',{'fsq':fsq,'forecast_query':forecast_query,'stock':stock_name,'to_check_value':2})
+                    
+                    
+                    df = pd.DataFrame()
+                    nabil = pd.DataFrame()
+                    df = pd.DataFrame(list(s1.objects.all().values())) 
+                    print(df) 
+                    
+
+                    #forecast model:
+                
+                    
+                    #df=pd.read_csv('Tesla.csv')
+                    #df=df[::-1]
+                    #data Cleaning
+                    df=df.dropna()
+                    nabil=df[["date","close"]]
+                    nabil.columns = ['ds','y']
+                
+
+                    nabil.index=pd.to_datetime(nabil.ds)
+                    nabil=nabil['y'][:forecast_date]
+                    nabil = nabil.to_frame().reset_index()
+                    nabil=nabil[len(nabil)-lookback_days : ]
+                    nabil_train=nabil[:-30]
+                    nabil_test=nabil[len(nabil)-30:]
+                    
+                    fbp=Prophet(daily_seasonality=False, changepoint_range=accuracy_range)
+                    fbp.fit(nabil_train)
+                    future=fbp.make_future_dataframe(periods=forecast_time)
+                    forecast=fbp.predict(future)
+                    print(forecast)
+                    from fbprophet.plot import plot_plotly, plot_components_plotly
+                    fig1 = fbp.plot(forecast)
+                    fig1.savefig('static\image\prophetplot45.png')
+                    
+
+
+                    #graph_div = go.offline.plot(fig1, auto_open = False, output_type="div")
+                    return render(request,'forecast.html',{'fsq':fsq,'forecast_query':forecast_query,'stock':stock_name,'to_check_value':2})
 
         
         
@@ -448,7 +476,22 @@ def watchlist(request):
 
 #alert ko lagi: 
 #status: url mapping kei gareko chaina; just function ho
+
+
+
+
 def market(request):
     todays_technical_query= fundamental.objects.all()
-    return render(request,'forecast.html',{'forecast_query':forecast_query})
- 
+    #return render(request,'forecast.html',{'forecast_query':forecast_query})
+    message="ok"
+    port = 587  
+    smtp_server = "smtp.gmail.com"
+    sender_email = "bigoinvestment291@gmail.com"    #use your email1
+    receiver_email = "prabinbohara10@.com"#use your email2
+    password = "bigo123@@"
+
+    context = ssl.create_default_context()
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.starttls(context=context)
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message)

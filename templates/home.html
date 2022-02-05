@@ -1,7 +1,206 @@
 {% extends 'base.html'%}
-
+{% load static %}
 {% block content %}
-<h1>home page !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+<div class="row mb-3"></div>
+<div class="row mb-3"></div>
 
+<!-- chart ko image rakhna hai -->
+
+<div class="container" id="image_container_ho">
+  <div class="row">
+      <!-- top gainer suru hia yo -->
+    <div class="col-lg-7">
+        <h2>NEPSE Index</h2>
+        <div>
+          <img src="{% static 'image/chart1.png' %}"  alt="">
+    
+        </div>
+      
+    </div>
+    <div class="col-lg-1">
+      
+    </div>
+    
+    <!-- top gainer end hai yo -->
+    <div class="col-lg-2">
+      <div>
+        <img src="{% static 'image/bigo.png' %}" width="350" height="200" class="d-inline-block align-top" alt="">
+      
+      </div>
+      
+    </div>
+    
+  </div>
+  <!-- yo hai hamro logo rakhna hai -->
+  
+
+<!-- top gainer end hai yo -->
+</div>
+  <!-- yo chai logo ko end hai -->
+</div>
+
+<!-- chart ko image end hai -->
+
+
+
+
+<div class="container" id="gainer_container_ho">
+    <div class="row">
+      <div class="col-lg-1">
+
+      </div>
+        <!-- top gainer suru hia yo -->
+      <div class="col-lg-4">
+          <h2>Top Gainer</h2>
+        <table class="table table-hover" id="gainer_table_ho">
+          <thead>
+            <tr>
+              <th scope="col">SN</th>
+              <th scope="col">symbol</th>
+              <th scope="col">LTP</th>
+              <th scope="col">%change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>WNLB</td>
+              <td>1959.20</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>WNLB</td>
+              <td>1959.20</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>WNLB</td>
+              <td>1959.20</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>WNLB</td>
+              <td>1959.20</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>WNLB</td>
+              <td>1959.20</td>
+              <td>10</td>
+            </tr>
+            
+          </tbody>
+        </table>
+  
+      </div>
+      <div class="col-lg-2"></div>
+      <div class="col-lg-4">
+        <h2>Top Losers</h2>
+        <table class="table table-hover" id="loser_table_ho">
+          <thead>
+            <tr>
+              <th scope="col">SN</th>
+              <th scope="col">symbol</th>
+              <th scope="col">LTP</th>
+              <th scope="col">%change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>WNLB</td>
+              <td>1959.20</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>WNLB</td>
+              <td>1959.20</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>WNLB</td>
+              <td>1959.20</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>WNLB</td>
+              <td>1959.20</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>WNLB</td>
+              <td>1959.20</td>
+              <td>10</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      <!-- top gainer end hai yo -->
+    </div>
+  
+  </div>
+  <div class="row mb-3"></div>
+<div class="row mb-3"></div>
+
+<div class="container">
+  <table class="table table-hover"  >
+    
+  </table>
+</div>
+  <div class="container fixTableHead"  id="sabai_disp_home">  
+    
+    <table class="table table-hover " >
+      <thead id="nice_header" class="thead-primary">
+        <tr>
+          <th scope="col">SN</th>
+          <th scope="col">Company</th>
+          <th scope="col">Open</th>
+          <th scope="col">High</th>
+          <th scope="col">Low</th>
+          <th scope="col">close</th>
+          <th scope="col">Volume</th>
+          <th scope="col">Total trades</th>
+        </tr>
+      </thead>
+      <tbody>
+      <!-- count=1 -->
+      {% for fq1 in tqfh%}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td >{{fq1.symbol}}</td>
+        <td >{{fq1.open_price}}</td>
+        <td >{{fq1.high_price}}</td>
+        <td >{{fq1.low_price}}</td>
+        <td >{{fq1.total_traded_quantity}}</td>
+        <td >{{fq1.close_price}}</td>
+        <td >{{fq1.total_trades}}</td>
+        
+      </tr>
+      
+      {% endfor %}
+      <!-- {% for fq1 in forecast_query%}
+      <tr>
+        <th scope="col">{{ forloop.counter }}</th>
+        <th scope="col">{{fq1.companies}}</th>
+        <th scope="col">{{fq1.sector}}</th>
+        <th scope="col">{{fq1.book_value}}</th>
+        
+      </tr>
+      
+      {% endfor %} -->
+    </tbody>
+      
+    </table>
+    
+  </div>
 
 {%  endblock %}

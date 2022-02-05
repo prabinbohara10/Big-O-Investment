@@ -38,3 +38,29 @@ input{
 /* #ff_search{
     background-color:darkgreen;
 } */
+
+body{
+    background-color:azure;
+}
+table{
+    overflow: auto;
+    background-color: white;
+}
+#nice_header{
+    position: sticky;
+    top: 0;
+    background-color: #95A5A6;
+}
+#fundamental_ko_radius_lai,#fundamental_ko_search_ko_radius_lai,#comparator_ko_radius{
+    border-radius: 50px 20px;
+}
+
+#image_container_ho{
+    height: 60vh;
+}
+
+#gainer_table_ho,#loser_table_ho{
+    border:1px solid #EEEEEE;
+    overflow-y: scroll;
+    height: 50px;
+}
